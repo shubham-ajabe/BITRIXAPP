@@ -7,51 +7,72 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 1.8em;
+            color: #333;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
         th, td {
-            border: 1px solid #ccc;
             padding: 10px;
+            border: 1px solid #ddd;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f4f4f4;
+        }
+        .no-data {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <h1>Task Details</h1>
-    {% if tasks %}
+    <div class="container">
+        <h1>Task Details</h1>
+
+        {% if tasks %}
         <table>
             <thead>
                 <tr>
                     <th>Task ID</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>Status</th>
+                    <th>Deadline</th>
                     <th>Created By</th>
                 </tr>
             </thead>
             <tbody>
                 {% for task in tasks %}
                 <tr>
-                    <td>{{ task.get('ID', 'N/A') }}</td>
-                    <td>{{ task.get('TITLE', 'N/A') }}</td>
-                    <td>{{ task.get('DESCRIPTION', 'N/A') }}</td>
-                    <td>{{ task.get('STATUS', 'N/A') }}</td>
-                    <td>{{ task.get('CREATED_BY_NAME', 'N/A') }}</td>
+                    <td>{{ task.ID }}</td>
+                    <td>{{ task.TITLE }}</td>
+                    <td>{{ task.DESCRIPTION }}</td>
+                    <td>{{ task.DEADLINE }}</td>
+                    <td>{{ task.CREATED_BY_NAME }} {{ task.CREATED_BY_LAST_NAME }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p>No task data available.</p>
-    {% endif %}
+        {% else %}
+        <p class="no-data">No tasks found.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
