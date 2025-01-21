@@ -405,7 +405,6 @@ def login():
 
 task_data_store = []
 
-# Webhook Route
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhook():
     global task_data_store
@@ -414,42 +413,39 @@ def webhook():
         try:
             # Parse incoming Bitrix webhook payload
             data = request.json
+            logging.info(f"Full Payload: {data}")  # Log entire payload
+            
             if not data:
                 logging.error("No data received in POST request.")
                 return jsonify({"message": "Invalid payload: No data received"}), 400
 
-            # Extract task ID from the payload
-            event_name = data.get('event', 'No Event Name Provided')
+            # Extract task ID
             fields_after = data.get('data', {}).get('FIELDS_AFTER', {})
             task_id = fields_after.get('ID')
-
             if not task_id:
-                logging.error("No Task ID found in payload.")
-                return jsonify({"message": "Task ID not found in payload"}), 400
+                logging.error("Task ID not found in payload")
+                return jsonify({"message": "Task ID missing"}), 400
 
-            logging.info(f"Received Event: {event_name}, Task ID: {task_id}")
+            logging.info(f"Extracted Task ID: {task_id}")
 
-            # Fetch task details using inbound webhook
-            inbound_webhook_url = f"https://b24-77nw8f.bitrix24.in/rest/1/gmfydo0ziujqry9f/task.item.getdata?taskId={task_id}"
-            
+            # Test inbound webhook
+            inbound_webhook_url = inbound_webhook_url = f"https://b24-77nw8f.bitrix24.in/rest/1/gmfydo0ziujqry9f/task.item.getdata?taskId={task_id}"
             response = requests.get(inbound_webhook_url)
+            logging.info(f"Inbound API Response: {response.json()}")
 
             if response.status_code == 200:
                 task_details = response.json().get('result', {})
-                logging.info(f"Task Details Retrieved: {task_details}")
-
-                # Store task details for displaying on the web page
                 task_data_store.append(task_details)
                 return jsonify({"message": "Task details fetched successfully"}), 200
             else:
-                logging.error(f"Failed to fetch task details: {response.text}")
+                logging.error(f"Inbound API Call Failed: {response.text}")
                 return jsonify({"message": "Failed to fetch task details"}), response.status_code
 
         except Exception as e:
             logging.error(f"An error occurred: {str(e)}")
             return jsonify({"message": "Internal server error"}), 500
 
-    # Render the task details on the web page
+    # Render task data on GET request
     return render_template('tasks.html', tasks=task_data_store)
 
 
