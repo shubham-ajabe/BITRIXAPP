@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Details</h1>
+    {% if tasks %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.get('ID', 'N/A') }}</td>
+                    <td>{{ task.get('TITLE', 'N/A') }}</td>
+                    <td>{{ task.get('DESCRIPTION', 'N/A') }}</td>
+                    <td>{{ task.get('STATUS', 'N/A') }}</td>
+                    <td>{{ task.get('CREATED_BY_NAME', 'N/A') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No task data available.</p>
+    {% endif %}
+</body>
+</html>
