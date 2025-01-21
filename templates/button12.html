@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File to Folder</title>
+</head>
+<body>
+    <h1>Upload File to Bitrix24 Folder</h1>
+    <form action="/button12" method="POST" enctype="multipart/form-data">
+        <label for="task_id">Task ID:</label>
+        <input type="text" id="task_id" name="task_id" required><br><br>
+
+        <label for="folder_id">Folder ID:</label>
+        <input type="text" id="folder_id" name="folder_id" required><br><br>
+
+        <label for="file">Choose File:</label>
+        <input type="file" id="file" name="file" required><br><br>
+
+        <button type="submit">Upload File</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        // Optional: Add client-side handling for form submission if needed
+    </script>
+</body>
+</html>

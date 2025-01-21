@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delegate Task</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+        .result-message {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Delegate Task</h1>
+        <form id="delegate-form">
+            <div class="form-group">
+                <label for="task-id">Task ID</label>
+                <input type="text" class="form-control" id="task-id" placeholder="Enter Task ID" required>
+            </div>
+            <div class="form-group">
+                <label for="user-id">User ID</label>
+                <input type="text" class="form-control" id="user-id" placeholder="Enter User ID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Delegate Task</button>
+        </form>
+
+        <div id="result" class="result-message"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#delegate-form').on('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var taskId = $('#task-id').val(); // Get the task ID
+                var userId = $('#user-id').val(); // Get the user ID
+                
+                if (taskId && userId) {
+                    $.ajax({
+                        url: '/button9',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ task_id: taskId, user_id: userId }),
+                        success: function (response) {
+                            if (response.success) {
+                                $('#result').html('<div class="success">' + response.message + '</div>');
+                            } else {
+                                $('#result').html('<div class="error">' + response.error + ': ' + response.details + '</div>');
+                            }
+                        },
+                        error: function () {
+                            $('#result').html('<div class="error">An error occurred while processing your request.</div>');
+                        }
+                    });
+                } else {
+                    $('#result').html('<div class="error">Please enter both Task ID and User ID.</div>');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

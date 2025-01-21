@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e3f2fd;
+        }
+
+        .container-wrapper {
+            display: flex;
+            gap: 100px; /* Spacing between the dropdown containers */
+            justify-content: flex-start; /* Align containers slightly left */
+            margin-left: -100px; /* Move the containers slightly to the left */
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .dropdown {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .dropdown label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .dropdown select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        a, button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        a:hover, button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        // JavaScript to trigger the popup
+        function showPopup(message) {
+            alert(message);
+        }
+
+        function updateSecondDropdown() {
+            const firstDropdown = document.getElementById('options');
+            const secondDropdown = document.getElementById('actions');
+            const thirdDropdown = document.getElementById('login-dropdown'); // Third dropdown
+
+            // Clear existing options in the second dropdown
+            secondDropdown.innerHTML = '';
+
+            // Update the second dropdown based on the first dropdown value
+            if (firstDropdown.value === 'bitrix24-crm') {
+                const triggers = [
+                    { value: 'company-trigger', text: 'Company Trigger' },
+                    { value: 'contact-trigger', text: 'Contact Trigger' },
+                    { value: 'deal-trigger', text: 'Deal Trigger' },
+                    { value: 'lead-trigger', text: 'Lead Trigger' },
+                    { value: 'quote-trigger', text: 'Quote Trigger' },
+                ];
+
+                triggers.forEach(trigger => {
+                    const option = document.createElement('option');
+                    option.value = trigger.value;
+                    option.textContent = trigger.text;
+                    secondDropdown.appendChild(option);
+                });
+            } else if (firstDropdown.value === 'gmail') {
+                const gmailOptions = [
+                    { value: 'new-attachment', text: 'New Attachment' },
+                    { value: 'new-email', text: 'New Email' },
+                    { value: 'new-email-matching-search', text: 'New Email Matching Search' },
+                    { value: 'new-label', text: 'New Label' },
+                    { value: 'new-labeled-email', text: 'New Labeled Email' },
+                    { value: 'new-starred-email', text: 'New Starred Email' },
+                    { value: 'new-thread', text: 'New Thread' },
+                ];
+
+                gmailOptions.forEach(optionData => {
+                    const option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.textContent = optionData.text;
+                    secondDropdown.appendChild(option);
+                });
+            } else {
+                // Default options for other values
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select a valid option';
+                secondDropdown.appendChild(defaultOption);
+            }
+
+            // Update the third dropdown to match the selected value of the first dropdown
+            thirdDropdown.value = firstDropdown.value;
+        }
+    </script>
+</head>
+<body>
+    <div class="container-wrapper">
+        <!-- First Dropdown Container -->
+        <div class="container">
+            <h1>Welcome, {{ username }}!</h1>
+
+            <!-- First Dropdown Menu -->
+            <div class="dropdown">
+                <label for="options">Choose APP:</label>
+                <select id="options" onchange="updateSecondDropdown()">
+                    <option value="bitrix24-crm">Bitrix24 CRM</option>
+                    <option value="github">GitHub</option>
+                    <option value="typeform">Typeform</option>
+                    <option value="google-calendar">Google Calendar</option>
+                    <option value="google-drive">Google Drive</option>
+                    <option value="gmail">Gmail</option>
+                    <option value="google-sheets">Google Sheets</option>
+                    <option value="hubspot">HubSpot</option>
+                    <option value="slack">Slack</option>
+                    <option value="notion">Notion</option>
+                    <option value="mailchimp">Mailchimp</option>
+                    <option value="facebook-lead-ads">Facebook Lead Ads</option>
+                    <option value="webhooks">Webhooks</option>
+                    <option value="schedule">Schedule</option>
+                    <option value="email">Email</option>
+                    <option value="code">Code</option>
+                    <option value="email-parser">Email Parser</option>
+                    <option value="sub-zap">Sub-Zap</option>
+                    <option value="imap">IMAP</option>
+                    <option value="chatbots">Chatbots</option>
+                    <option value="interfaces">Interfaces</option>
+                    <option value="tables">Tables</option>
+                </select>
+            </div>
+
+            <!-- Second Dropdown Menu -->
+            <div class="dropdown">
+                <label for="actions">Trigger Event:</label>
+                <select id="actions">
+                    <option value="">Select a valid option</option>
+                </select>
+            </div>
+
+            <!-- Third Dropdown Menu -->
+            <div class="dropdown">
+                <label for="login-dropdown">Account:</label>
+                <select id="login-dropdown">
+                    <option value="bitrix24-crm">Bitrix24 CRM</option>
+                    <option value="github">GitHub</option>
+                    <option value="typeform">Typeform</option>
+                    <option value="google-calendar">Google Calendar</option>
+                    <option value="google-drive">Google Drive</option>
+                    <option value="gmail">Gmail</option>
+                    <option value="google-sheets">Google Sheets</option>
+                    <option value="hubspot">HubSpot</option>
+                    <option value="slack">Slack</option>
+                    <option value="notion">Notion</option>
+                    <option value="mailchimp">Mailchimp</option>
+                    <option value="facebook-lead-ads">Facebook Lead Ads</option>
+                    <option value="webhooks">Webhooks</option>
+                    <option value="schedule">Schedule</option>
+                    <option value="email">Email</option>
+                    <option value="code">Code</option>
+                    <option value="email-parser">Email Parser</option>
+                    <option value="sub-zap">Sub-Zap</option>
+                    <option value="imap">IMAP</option>
+                    <option value="chatbots">Chatbots</option>
+                    <option value="interfaces">Interfaces</option>
+                    <option value="tables">Tables</option>
+                </select>
+            </div>
+
+            <button> Connect </button>
+        </div>
+
+        <div style="display: flex; justify-content: center; align-items: center; background-color: #87CEEB; width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin: 0 30px;">
+        <div style="font-size: 60px; color: white; font-weight: bold; line-height: 1;">+</div>
+        </div>
+
+
+
+        <!-- Second Dropdown Container -->
+        <div class="container">
+            <h1> Action </h1>
+
+
+            <!-- First Dropdown Menu -->
+            <div class="dropdown">
+                <label for="options-2">Choose APP:</label>
+                <select id="options-2">
+                    <option value="gmail" selected>Gmail</option>
+                    <option value="google-calendar">Google Calendar</option>
+                    <option value="google-drive">Google Drive</option>
+                    <option value="slack">Slack</option>
+                    <option value="notion">Notion</option>
+                </select>
+            </div>
+
+
+             <!-- Second Dropdown Menu -->
+            <div class="dropdown">
+                <label for="trigger-event-2">Trigger Event:</label>
+                <select id="trigger-event-2">
+                    <option value="new-attachment">New Attachment</option>
+                    <option value="new-email">New Email</option>
+                    <option value="new-labeled-email">New Labeled Email</option>
+                    <option value="new-starred-email">New Starred Email</option>
+                    <option value="new-thread">New Thread</option>
+                </select>
+            </div>
+
+            <!-- Third Dropdown Menu -->
+            <div class="dropdown">
+                <label for="account-2">Account:</label>
+                <select id="account-2">
+                    <option value="gmail" selected>Gmail</option>
+                </select>
+            </div>
+
+            <button> Connect </button>
+        </div>
+    </div>
+
+    {% if show_popup %}
+    <script>
+        showPopup("Welcome, {{ username }}. You have successfully logged in.");
+    </script>
+    {% endif %}
+</body>
+</html>

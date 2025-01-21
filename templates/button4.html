@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;  /* Adjusted width for better table visibility */
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    {% if tasks %}
+        {% for task in tasks %}
+        <div class="container">
+            <h2>Task ID: {{ task.ID }}</h2>
+            <table>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>{{ task.ID }}</td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td>{{ task.TITLE }}</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>{{ task.STATUS }}</td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="container">
+            <p>{{ error or "No tasks found." }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

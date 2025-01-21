@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Comment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Ensures vertical layout */
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            margin: 10px; /* Adds space around each form */
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            text-align: center; /* Centers the heading */
+            margin-bottom: 20px; /* Adds space below the heading */
+        }
+        label {
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        textarea {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box; /* Includes padding and border in width */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form><h1>Add Comment to Task</h1></form> <!-- This form only contains a heading and serves no submission purpose -->
+
+    <form action="/button6" method="post">
+        <label for="task_id">Task ID:</label>
+        <input type="text" id="task_id" name="task_id" required><br>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" required></textarea><br>
+        <button type="submit">Submit Comment</button>
+    </form>
+</body>
+</html>

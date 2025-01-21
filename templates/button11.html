@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Available Storages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f7fa;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #storagesList {
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .storage-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .storage-item h4 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .storage-item p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .error-message {
+            color: red;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        // Function to handle the 'Get Storages' button click
+        function getStorages() {
+            // Show loading message while waiting for response
+            document.getElementById("storagesList").innerHTML = "Loading...";
+
+            // Send a POST request to the backend
+            fetch('/button11', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Display the list of storages
+                    let storages = data.storages.result;
+                    if (storages.length === 0) {
+                        document.getElementById("storagesList").innerHTML = "No storages available.";
+                        return;
+                    }
+                    
+                    let storageHTML = "";
+                    storages.forEach(storage => {
+                        // Handle 'undefined' by checking each property before displaying
+                        let storageName = storage.NAME ? storage.NAME : 'No Name Provided';
+                        let storageHTMLContent = `
+                            <div class="storage-item">
+                                <h4>${storageName}</h4>
+                        `;
+                        
+                        // Only add the type if it's available
+                        if (storage.TYPE) {
+                            storageHTMLContent += `<p><strong>Type:</strong> ${storage.TYPE}</p>`;
+                        }
+
+                        storageHTMLContent += `</div>`;
+                        storageHTML += storageHTMLContent;
+                    });
+
+                    document.getElementById("storagesList").innerHTML = storageHTML;
+                } else {
+                    // If there was an error
+                    document.getElementById("storagesList").innerHTML = "Failed to fetch storages.";
+                }
+            })
+            .catch(error => {
+                // Handle any network errors
+                document.getElementById("storagesList").innerHTML = "An error occurred.";
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Get Available Storages</h1>
+        <button onclick="getStorages()">Get Storages</button>
+        <div id="storagesList"></div>
+    </div>
+</body>
+</html>

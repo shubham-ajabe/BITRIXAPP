@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Division</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        h1 {
+            color: #333333;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 2px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #87CEEB;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e6ffe6;
+            color: #2d662d;
+            border: 1px solid #2d662d;
+            border-radius: 5px;
+        }
+
+        .home-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Division</h1>
+        <form action="/division" method="POST">
+            <label for="num1">Enter First Number:</label>
+            <input type="text" id="num1" name="num1" required>
+
+            <label for="num2">Enter Second Number:</label>
+            <input type="text" id="num2" name="num2" required>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            {{ result }}
+        </div>
+        {% endif %}
+
+        <div class="home-button">
+            <a href="/"><button>Home</button></a>
+            <a href="/"><button>Back</button></a>
+        </div>
+    </div>
+</body>
+</html>
